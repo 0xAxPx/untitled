@@ -115,9 +115,15 @@ get()/remove()/contains():O(n)
 <h5>HashMap</h5>
 Not sync'ed
 Allows null values and only one null key
-Iterators are fail fast
+Iterators are fail fast (throws ConcurrentModificationException in modifying object)
 Fast
 containsKey()/get/put/remove:O(1) if hashcode and equals are implemented properly, if not then O(n)
+
+If equals and hashcode implemented correctly then:
+searching / deleting / adding - o(1)
+worst case - O(n) linear
+if we break threshold (8) - worst case is O(log(n)) because of RedBackTree
+
 
 <h5>HashTable</h5>
 Not sync'ed
@@ -146,13 +152,19 @@ add()/remove()/contains(): O(logN)
 
 <h3>Immutability???</h3>
 <h5>String Class, String Pool</h5>
-
+https://www.journaldev.com/797/what-is-java-string-pool
+Using new operator, we force String class to create a new String object in heap space. We can use intern() method to put it into the pool or refer to another String object from the string pool having the same value.
+String pool is also example of Flyweight design pattern.
 
 <h3>Concurrency</h3>
 <h5>Concurrency vs Parallelism</h5> 
 <h5>Thread vs Runnable</h5>
 <h5>Happened Before Principles</h5>
 <h5>Volatile</h5>
+
+<h2>Data Type</h2>
+<ul>AutoBoxing (automatically): int -> Integer</ul>
+<ul>AutoUnboxing: Integer -> int</ul>
 
 <h2>Java Low Latency Optimization</h2>
 <h3>JVM Optimization</h3>
@@ -202,10 +214,34 @@ add()/remove()/contains(): O(logN)
 <li>UnaryOperator: T apply(T)</li>
 <li>BinaryOperator: T apply(T,T)</li>
 
+<h3>Comparable vs Comparator</h3>
+Java provides Comparable interface which should be implemented by any custom class if we want to use Arrays or Collections sorting methods.
+The Comparable interface has compareTo(T obj) method which is used by sorting methods, you can check any Wrapper, String or Date class to confirm this. 
+We should override this method in such a way that it returns a negative integer, zero, or a positive integer if “this” object is less than, equal to, or greater than the object passed as an argument.
+This is the situation where we need to use Java Comparator interface because Comparable.compareTo(Object o) method implementation can provide default sorting and we can’t change it dynamically. 
+Whereas with Comparator, we can define multiple methods with different ways of sorting and then chose the sorting method based on our requirements.
+Comparator interface compare(Object o1, Object o2) method need to be implemented that takes two Object argument, it should be implemented in such a way that it returns negative int if the first argument is less than the second one and returns zero if they are equal and positive int if the first argument is greater than the second one.
+
+Comparable interface can be used to provide single way of sorting whereas Comparator interface is used to provide different ways of sorting.
+For using Comparable, Class needs to implement it whereas for using Comparator we don’t need to make any change in the class.
+Comparable interface is in java.lang package whereas Comparator interface is present in java.util package.
+We don’t need to make any code changes at client side for using Comparable, Arrays.sort() or Collection.sort() methods automatically uses the compareTo() method of the class. For Comparator, client needs to provide the Comparator class to use in compare() method.
+
 <h3>Stream</h3>
 <p>Stream interface comes from java.util.stream package</p>
 
+<h3>Algorithms</h3>
+<p></p>
 
+
+<h3>Design Patterns</h3>
+
+<h4>Structural Design Pattern</h4>
+
+<li>Facade pattern</li>
+<li>Adapter pattern</li>
+<li>Decorator pattern</li>
+<li>Flyweight pattern: https://www.journaldev.com/1562/flyweight-design-pattern-java</li>
 
 
 <h2>TESTING</h2>
@@ -231,9 +267,11 @@ REST - Representational state transfer. Web API obeys Rest Restrictions is RESTF
 <li>Cacheability</li>
 
 <h3>TCP vs UDP </h3>
+
+
 <h3>HTTP and its methods</h3>
 <li>GET - get resources</li>
-<li>POST - create resource</li>
+<li>POST - create new resource</li>
 <li>PUT - сheck if resource exists if yes - update, no - create new</li>
 <li>DELETE - delete resource</li>
 <li>PATCH - update resource</li>
@@ -249,13 +287,15 @@ Article : https://algodma.wordpress.com/2021/05/06/%d1%87%d1%82%d0%be-%d0%bd%d0%
 To get cache-line size (coherency_line_size in bytes): /sys/devices/system/cpu/cpu0/cache/
 
 
+
 <h2>POSTGRES</h2>
-C:\Dev\JS\Projects\test\server>postgres --version
+<p>C:\Dev\JS\Projects\test\server>postgres --version</p>
 postgres (PostgreSQL) 14.4
+
 <h3>Connection</h3>
-In CMD:
-AdminTool: pgAdmin4 opens Admin Tool
-Authorize: psql -U postgres
-Database connection:
-postgres=# \c coffeeshop
-You are now connected to database "coffeeshop" as user "postgres".
+<p>In CMD:</p>
+<p>AdminTool: pgAdmin4 opens Admin Tool</p>
+<p>Authorize: psql -U postgres</p>
+<p>Database connection:</p>
+<p>postgres=# \c coffeeshop</p>
+<p>You are now connected to database "coffeeshop" as user "postgres". </p>
