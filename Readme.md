@@ -436,9 +436,11 @@ postgres (PostgreSQL) 14.4
 <p>In CMD:</p>
 <p>AdminTool: pgAdmin4 opens Admin Tool</p>
 <p>Authorize: psql -U postgres</p>
+<p>password: 1</p>
 <p>Database connection:</p>
 <p>postgres=# \c coffeeshop</p>
 <p>You are now connected to database "coffeeshop" as user "postgres". </p>
+<p> Connect to database under another user: psql -d coffeeshop -U barista_owner</p>
 
 <h2>LINUX</h2>
 
