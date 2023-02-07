@@ -7,10 +7,12 @@ import java.util.TimeZone;
 
 public class FileMain {
 
-    private static String separator = File.separator;
-    public static String oldName = "application.properties";
-    public static String newName = "application.txt";
-    private static String absolutePath = "C:" + separator + "Dev" + separator + "Java" + separator + "ocp11" + separator + "src" + separator + "main" + separator + "resources" + separator + "io" + separator;
+    public static String oldName = "test.csv";
+    public static String newName = "test_update.csv";
+
+    //win
+    private static final String separator = File.separator;
+    private static final String absolutePath = "C:" + separator + "Dev" + separator + "Java" + separator + "Projects" + separator + "untitled" + separator + "src" + separator + "test" + separator + "resources" + separator + "io" + separator;
 
 
     public static String getTestFile(String fileName) {

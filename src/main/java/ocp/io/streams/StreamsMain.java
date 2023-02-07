@@ -16,7 +16,7 @@ public class StreamsMain {
     public static void main(String[] args) {
 
         //read buffered stream
-        try (var ois = new BufferedInputStream(new FileInputStream(FileMain.getTestFile(FileMain.oldName)), 4 * 1048)) {
+        try (var ois = new BufferedInputStream(new FileInputStream(FileMain.getTestFile(FileMain.oldName)), 4)) {
             System.out.println("Loaded the file!");
             System.out.println("Start : " + ois.available());
             while (ois.available() > 0) {
